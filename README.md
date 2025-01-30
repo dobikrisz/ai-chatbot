@@ -7,7 +7,6 @@ A simple AI chatbot hosted on GCP and powered by vertex AI
 cd Frontend
 pip install -r requirements
 streamlit run Frontend.py -- --project_id=<PROJECT_ID>
-
 ```
 
 ## Deploy on Cloud Run:
