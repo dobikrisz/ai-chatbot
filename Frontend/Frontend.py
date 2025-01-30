@@ -63,13 +63,13 @@ if __name__ == "__main__":
         login_comp()
     else:
 
-        #context.append(f"please refer user as {st.session_state['username']}")
+        context.append(f"please refer user as {st.session_state['username']}")
         genAI = Vertex_AI(PROJECT_ID=args.project_id, location=args.location)
 
         st.title("Google Cloud Assistant")
 
         if "messages" not in st.session_state:
-            st.session_state["messages"] = [{"role": "assistant", "content": f"Szia, miben segíthetek?"}]
+            st.session_state["messages"] = [{"role": "assistant", "content": f"Szia {st.session_state['username']}, miben segíthetek?"}]
 
         for msg in st.session_state.messages:
             st.chat_message(msg["role"]).write(msg["content"])
