@@ -1,12 +1,29 @@
 import streamlit as st
 import vertexai
 from vertexai.generative_models import GenerativeModel
+import argparse
+import sys
 
 context = [
         "You are a personal assistant for google cloud developers.",
         "Your mission is to give answers related to google cloud platform questions.",
         "By default reply in hungarian if other language is not used.",
     ]
+
+parser = argparse.ArgumentParser()
+
+# Adding optional argument
+parser.add_argument("--project_id", type=str, help = "Pass GCP Project ID")
+parser.add_argument("--location", type=str, help = "Pass Cloud Run location", default="europe-west1")
+
+# Read arguments from command line
+args = parser.parse_args()
+
+# Check if the flag is missing
+if args.project_id is None:
+    print("Error: The '--project_id' flag is required!")
+    parser.print_help()
+    sys.exit(1)  # Exit with nonzero status
 
 class Vertex_AI:
     def __init__(self, PROJECT_ID, location):
@@ -45,7 +62,7 @@ if __name__ == "__main__":
     else:
 
         context.append(f"please refer user as {st.session_state["username"]}")
-        genAI = Vertex_AI(PROJECT_ID="webinar-449407", location="europe-west1")
+        genAI = Vertex_AI(PROJECT_ID=args.project_id, location=args.location)
 
         st.title("Google Cloud Assistant")
 
