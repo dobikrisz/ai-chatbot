@@ -18,7 +18,7 @@ steps:
         fi
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', "--build-arg", "PROJECT_ID=${_PROJECT_ID}", '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/chatbot_img/frontend','-f', './Frontend/Dockerfile', '.' ]
+    args: [ 'build',"--build-arg", "PROJECT_ID=${_PROJECT_ID}", '-t', '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/chatbot_img/frontend','-f', './Frontend/Dockerfile', '.' ]
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/chatbot_img/frontend']
 
