@@ -32,10 +32,10 @@ steps:
 
   - name: hashicorp/terraform:1.6.0
     id: "terraform init"
-    args: ["init"]
+    args: ["terraform", "init"]
 
   - name: hashicorp/terraform:1.6.0
     id: "Terraform Apply"
-    args: ["apply", "-var", "PROJECT_ID=${_PROJECT_ID}", "-var", "LOCATION=${_LOCATION}", "-var", "BACKEND_BUCKET=${_BACKEND_BUCKET}", "-auto-approve"]
+    args: ["terraform", "apply", "-var", "PROJECT_ID=${_PROJECT_ID}", "-var", "LOCATION=${_LOCATION}", "-var", "BACKEND_BUCKET=${_BACKEND_BUCKET}", "-auto-approve"]
 
 timeout: 1800s
