@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket  = var.BACKEND_BUCKET
+    bucket  = "webinar-449407"
     prefix  = "state"
   }
 }

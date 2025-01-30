@@ -16,10 +16,6 @@ steps:
           echo "ERROR: Missing required substitution _LOCATION"
           exit 1
         fi
-        if [[ -z "${_BACKEND_BUCKET}" ]]; then
-          echo "ERROR: Missing required substitution _BACKEND_BUCKET"
-          exit 1
-        fi
 
   - name: "gcr.io/cloud-builders/gcloud"
     entrypoint: "sh"
@@ -45,6 +41,6 @@ steps:
     args: 
       - "-c"
       - |
-        terraform apply -var PROJECT_ID="${_PROJECT_ID}" -var LOCATION="${_LOCATION}" -var BACKEND_BUCKET="${_BACKEND_BUCKET}" -auto-approve
+        terraform apply -var PROJECT_ID="${_PROJECT_ID}" -var LOCATION="${_LOCATION}" -auto-approve
 
 timeout: 1800s
