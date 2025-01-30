@@ -16,8 +16,8 @@ resource "google_cloud_run_v2_service" "chatbot" {
 
 # IAM Policy to Allow Public Access
 resource "google_cloud_run_service_iam_member" "public_access" {
-  service  = google_cloud_run_service.chatbot.name
-  location = google_cloud_run_service.chatbot.location
+  service  = google_cloud_run_v2_service.chatbot.name
+  location = google_cloud_run_v2_service.chatbot.location
   role     = "roles/run.invoker"
   member   = "allUsers"
 }
