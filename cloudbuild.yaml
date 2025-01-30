@@ -21,9 +21,11 @@ steps:
     entrypoint: "sh"
     args:
       - "-c"
-      - cd Frontend
-      - touch Procfile
-      - echo "web: streamlit run Frontend.py --server.port=8080 --server.address=0.0.0.0 --server.enableCORS=false --browser.gatherUsageStats=false -- --project_id=${_PROJECT_ID}" > Procfile
+      - |
+        cd Frontend && \
+        touch Procfile && \
+        echo "web: streamlit run Frontend.py --server.port=8080 --server.address=0.0.0.0 --server.enableCORS=false --browser.gatherUsageStats=false -- --project_id=${_PROJECT_ID}" > Procfile
+
 
   - name: hashicorp/terraform:1.6.0
     id: "terraform init"
@@ -32,3 +34,5 @@ steps:
   - name: hashicorp/terraform:1.6.0
     id: "Terraform Apply"
     args: ["apply", "-var", "PROJECT_ID=${_PROJECT_ID}", "-var", "LOCATION=${_LOCATION}", "-var", "BACKEND_BUCKET=${_BACKEND_BUCKET}", "-auto-approve"]
+
+timeout: 1800s
