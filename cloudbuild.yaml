@@ -17,17 +17,10 @@ steps:
           exit 1
         fi
 
-  - name: "gcr.io/cloud-builders/gcloud"
-    entrypoint: "sh"
-    args:
-      - "-c"
-      - |
-        cd Frontend && \
-        touch Procfile && \
-        echo "web: streamlit run Frontend.py --server.port=8080 --server.address=0.0.0.0 --server.enableCORS=false --browser.gatherUsageStats=false -- --project_id=${_PROJECT_ID}" > Procfile
-
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/chatbot_img/frontend','-f', './Frontend', '.' ]
+    args: [ 'build', '-t', "--build-arg", "PROJECT_ID=${_PROJECT_ID}", '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/chatbot_img/frontend','-f', './Frontend/Dockerfile', '.' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/chatbot_img/frontend']
 
   - name: hashicorp/terraform:1.6.0
     entrypoint: "sh"
