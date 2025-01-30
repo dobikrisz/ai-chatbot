@@ -6,7 +6,7 @@ resource "google_cloud_run_service" "chatbot" {
   template {
     spec {
       containers {
-        image = "${var.LOCATION}-docker.pkg.dev/${var.PROJECT_ID}/cloud-run-chatbot-deploy/frontend"
+        image = "${var.LOCATION}-docker.pkg.dev/${var.PROJECT_ID}/cloud-run-chatbot-deploy/frontend:latest"
       }
     }
   }
