@@ -6,7 +6,7 @@ resource "google_cloud_run_service" "chatbot" {
   template {
     spec {
       containers {
-        image = google_cloud_run_service.chatbot.latest_created_revision
+        image = '${var.LOCATION}-docker.pkg.dev/${var.PROJECT_ID}/chatbot_img/frontend'
       }
     }
   }
@@ -15,21 +15,6 @@ resource "google_cloud_run_service" "chatbot" {
     percent         = 100
     latest_revision = true
   }
-}
-
-# Cloud Build Step to Build and Deploy to Cloud Run
-resource "google_cloudbuild_build" "build_and_deploy" {
-  project = var.project_id
-
-  steps {
-    name = "gcr.io/cloud-builders/gcloud"
-    args = ["run", "deploy", "chatbot-automated",
-            "--source", "./Frontend/",
-            "--region", var.LOCATION,
-            "--allow-unauthenticated"]
-  }
-
-  timeout = "1200s"
 }
 
 # IAM Policy to Allow Public Access

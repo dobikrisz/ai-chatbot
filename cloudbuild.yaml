@@ -26,6 +26,8 @@ steps:
         touch Procfile && \
         echo "web: streamlit run Frontend.py --server.port=8080 --server.address=0.0.0.0 --server.enableCORS=false --browser.gatherUsageStats=false -- --project_id=${_PROJECT_ID}" > Procfile
 
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/chatbot_img/frontend','-f', './Frontend', '.' ]
 
   - name: hashicorp/terraform:1.6.0
     entrypoint: "sh"
