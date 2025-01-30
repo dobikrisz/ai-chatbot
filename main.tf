@@ -6,7 +6,7 @@ resource "google_cloud_run_service" "chatbot" {
   template {
     spec {
       containers {
-        image = google_cloud_run_service.python_app.latest_created_revision
+        image = google_cloud_run_service.chatbot.latest_created_revision
       }
     }
   }
@@ -34,8 +34,8 @@ resource "google_cloudbuild_build" "build_and_deploy" {
 
 # IAM Policy to Allow Public Access
 resource "google_cloud_run_service_iam_member" "public_access" {
-  service  = google_cloud_run_service.python_app.name
-  location = google_cloud_run_service.python_app.location
+  service  = google_cloud_run_service.chatbot.name
+  location = google_cloud_run_service.chatbot.location
   role     = "roles/run.invoker"
   member   = "allUsers"
 }
