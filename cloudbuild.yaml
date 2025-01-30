@@ -19,10 +19,10 @@ steps:
 
   - name: 'gcr.io/cloud-builders/docker'
     dir: Frontend
-    args: [ 'build',"--build-arg", "PROJECT_ID=${_PROJECT_ID}", '-t', '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/chatbot_img/frontend', '.' ]
+    args: [ 'build',"--build-arg", "PROJECT_ID=${_PROJECT_ID}", '-t', '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/cloud-run-chatbot-deploy/frontend', '.' ]
   - name: 'gcr.io/cloud-builders/docker'
     dir: Frontend
-    args: ['push', '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/chatbot_img/frontend']
+    args: ['push', '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/cloud-run-chatbot-deploy/frontend']
 
   - name: hashicorp/terraform:1.6.0
     entrypoint: "sh"
