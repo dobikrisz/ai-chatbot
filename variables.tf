@@ -7,8 +7,3 @@ variable "LOCATION" {
     type = string
     description = "GCP default location"
 }
-
-variable "BACKEND_BUCKET" {
-    type = string
-    description = "Backend bucket for terraform state file"
-}
