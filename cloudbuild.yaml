@@ -35,12 +35,14 @@ steps:
     id: "terraform init"
     args:
       - "-c"
-      - terraform init
+      - |
+        terraform init
 
   - name: hashicorp/terraform:1.6.0
     id: "Terraform Apply"
     args: 
       - "c"
-      - terraform apply -var PROJECT_ID="${_PROJECT_ID}" -var LOCATION="${_LOCATION}" -var BACKEND_BUCKET="${_BACKEND_BUCKET}" -auto-approve
+      - |
+        terraform apply -var PROJECT_ID="${_PROJECT_ID}" -var LOCATION="${_LOCATION}" -var BACKEND_BUCKET="${_BACKEND_BUCKET}" -auto-approve
 
 timeout: 1800s
