@@ -35,7 +35,7 @@ steps:
     entrypoint: "sh"
     id: "terraform init"
     args: 
-    - "c"
+    - "-c"
     - |
       terraform init
 
@@ -43,7 +43,7 @@ steps:
     entrypoint: "sh"
     id: "Terraform Apply"
     args: 
-      - "c"
+      - "-c"
       - |
         terraform apply -var PROJECT_ID="${_PROJECT_ID}" -var LOCATION="${_LOCATION}" -var BACKEND_BUCKET="${_BACKEND_BUCKET}" -auto-approve
 
