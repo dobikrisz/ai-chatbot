@@ -1,8 +1,3 @@
-resource "random_string" "random" {
-  length           = 16
-  special          = true
-}
-
 # Cloud Run Service
 resource "google_cloud_run_v2_service" "chatbot" {
   name     = "chatbot-automated"
@@ -12,7 +7,6 @@ resource "google_cloud_run_v2_service" "chatbot" {
     containers {
       image = "${var.LOCATION}-docker.pkg.dev/${var.PROJECT_ID}/cloud-run-chatbot-deploy/frontend:latest"
     }
-    revision = random_string.random.result
   }
 
   traffic {
