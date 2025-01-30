@@ -36,7 +36,8 @@ steps:
     id: "terraform init"
     args: 
     - "c"
-    - "terraform init"
+    - |
+      terraform init
 
   - name: hashicorp/terraform:1.6.0
     entrypoint: "sh"
