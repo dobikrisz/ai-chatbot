@@ -1,0 +1,34 @@
+steps:
+  - name: "gcr.io/cloud-builders/gcloud"
+    entrypoint: "sh"
+    args:
+      - "-c"
+      - |
+        if [[ -z "${_PROJECT_ID}" ]]; then
+          echo "ERROR: Missing required substitution _PROJECT_ID"
+          exit 1
+        fi
+        if [[ -z "${_LOCATION}" ]]; then
+          echo "ERROR: Missing required substitution _LOCATION"
+          exit 1
+        fi
+        if [[ -z "${_BACKEND_BUCKET}" ]]; then
+          echo "ERROR: Missing required substitution _BACKEND_BUCKET"
+          exit 1
+        fi
+
+  - name: "gcr.io/cloud-builders/gcloud"
+    entrypoint: "sh"
+    args:
+      - "-c"
+      - cd Frontend
+      - touch Procfile
+      - echo "web: streamlit run Frontend.py --server.port=8080 --server.address=0.0.0.0 --server.enableCORS=false --browser.gatherUsageStats=false -- --project_id=${_PROJECT_ID}" > Procfile
+
+  - name: hashicorp/terraform:1.6.0
+    id: "terraform init"
+    args: ["init"]
+
+  - name: hashicorp/terraform:1.6.0
+    id: "Terraform Apply"
+    args: ["apply", "-var", "PROJECT_ID=${_PROJECT_ID}", "-var", "LOCATION=${_LOCATION}", "-var", "BACKEND_BUCKET=${_BACKEND_BUCKET}", "-auto-approve"]
