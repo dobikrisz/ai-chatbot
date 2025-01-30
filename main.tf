@@ -8,10 +8,6 @@ resource "google_cloud_run_v2_service" "chatbot" {
       image = "${var.LOCATION}-docker.pkg.dev/${var.PROJECT_ID}/cloud-run-chatbot-deploy/frontend:latest"
     }
   }
-
-  traffic {
-    percent         = 100
-  }
 }
 
 # IAM Policy to Allow Public Access
