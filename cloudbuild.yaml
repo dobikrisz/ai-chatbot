@@ -1,5 +1,6 @@
 options:
-  logging: NONE
+  logging: CLOUD_LOGGING_ONLY
+  default_logs_bucket_behavior: REGIONAL_USER_OWNED_BUCKET
 
 steps:
   - name: "gcr.io/cloud-builders/gcloud"
@@ -32,10 +33,14 @@ steps:
 
   - name: hashicorp/terraform:1.6.0
     id: "terraform init"
-    args: ["terraform", "init"]
+    args:
+      - "-c"
+      - terraform init
 
   - name: hashicorp/terraform:1.6.0
     id: "Terraform Apply"
-    args: ["terraform", "apply", "-var", "PROJECT_ID=${_PROJECT_ID}", "-var", "LOCATION=${_LOCATION}", "-var", "BACKEND_BUCKET=${_BACKEND_BUCKET}", "-auto-approve"]
+    args: 
+      - "c"
+      - terraform apply -var PROJECT_ID="${_PROJECT_ID}" -var LOCATION="${_LOCATION}" -var BACKEND_BUCKET="${_BACKEND_BUCKET}" -auto-approve
 
 timeout: 1800s
