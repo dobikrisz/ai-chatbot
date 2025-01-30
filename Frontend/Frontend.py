@@ -27,6 +27,7 @@ if args.project_id is None:
 
 class Vertex_AI:
     def __init__(self, PROJECT_ID, location):
+        print(PROJECT_ID)
         self.PROJECT_ID = PROJECT_ID
         self.location = location
 
