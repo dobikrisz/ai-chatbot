@@ -18,8 +18,10 @@ steps:
         fi
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build',"--build-arg", "PROJECT_ID=${_PROJECT_ID}", '-t', '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/chatbot_img/frontend','-f', './Frontend/Dockerfile', '.' ]
+    dir: Frontend
+    args: [ 'build',"--build-arg", "PROJECT_ID=${_PROJECT_ID}", '-t', '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/chatbot_img/frontend', '.' ]
   - name: 'gcr.io/cloud-builders/docker'
+    dir: Frontend
     args: ['push', '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/chatbot_img/frontend']
 
   - name: hashicorp/terraform:1.6.0
