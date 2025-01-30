@@ -26,5 +26,7 @@ ARG PROJECT_ID
 # Set it as an environment variable inside the container
 ENV PROJECT_ID=${PROJECT_ID}
 
+ENV PYTHONUTF8=1
+
 # Run Streamlit
 CMD ["streamlit", "run", "Frontend.py", "--server.port=8080", "--server.address=0.0.0.0", "--server.enableCORS=false", "--", "--project_id=$PROJECT"]
