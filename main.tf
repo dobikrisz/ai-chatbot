@@ -7,6 +7,9 @@ resource "google_cloud_run_v2_service" "chatbot" {
     containers {
       image = "${var.LOCATION}-docker.pkg.dev/${var.PROJECT_ID}/cloud-run-chatbot-deploy/frontend:latest"
     }
+    scaling {
+      max_instance_count = 1
+    }
   }
 }
 
